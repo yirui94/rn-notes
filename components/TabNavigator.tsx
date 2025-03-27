@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { Image } from 'react-native';
+import {
+    Image,
+    Platform,
+    StatusBar,
+} from 'react-native';
 import {
     useNavigation,
  } from '@react-navigation/native';
@@ -32,7 +36,14 @@ export default function Tabs() {
     
     const headerOptions: BottomTabNavigationOptions = {
         headerStyle: {
-            height: 68 + inset.top,
+            ...Platform.select({
+                android: {
+                    height: 68 + inset.top + (StatusBar.currentHeight ?? 0),
+                },
+                default: {
+                    height: 68 + inset.top,
+                }, 
+            }),
             backgroundColor: Color.headerBackgroundColor,
             borderBottomLeftRadius: 20, 
             borderBottomRightRadius: 20, 
@@ -76,7 +87,14 @@ export default function Tabs() {
                 options={{
                     ...headerOptions,
                     headerStyle: {
-                        height: 68 + inset.top,
+                        ...Platform.select({
+                            android: {
+                              height: 68 + inset.top + (StatusBar.currentHeight ?? 0),
+                            },
+                            default: {
+                                height: 68 + inset.top,
+                            }, 
+                        }),
                     },
                     headerTransparent: true,
                     headerRight: () => (

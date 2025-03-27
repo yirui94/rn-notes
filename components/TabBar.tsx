@@ -74,6 +74,7 @@ export default function TabBar({ state, descriptors, navigation }) {
                             href={buildHref(route.name, route.params)}
                             onPress={onPress}
                             onLongPress={onLongPress}
+                            hitSlop={20}
                         >
                             <Image source={NewNoteIcon} />        
                         </PlatformPressable>

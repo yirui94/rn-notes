@@ -1,4 +1,9 @@
 import * as React from 'react';
+import {
+    Platform,
+    StatusBar,
+} from 'react-native';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
     useSafeAreaInsets
@@ -39,7 +44,14 @@ export default function StackNavigator() {
                         paddingLeft: 20
                       }}
                       headerStyle={{
-                        height: 68 + inset.top,
+                        ...Platform.select({
+                            android: {
+                              height: 68 + inset.top + (StatusBar.currentHeight ?? 0),
+                            },
+                            default: {
+                                height: 68 + inset.top,
+                            }, 
+                        }),
                         backgroundColor: Color.headerBackgroundColor,
                         borderBottomLeftRadius: 20, 
                         borderBottomRightRadius: 20, 

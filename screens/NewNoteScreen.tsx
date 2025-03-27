@@ -80,6 +80,8 @@ export default function SettingsScreen() {
         onChangeText={text => setNote(text)}
         value={note}
         style={styles.textInput}
+        textAlign={'left'}
+        textAlignVertical={'top'}
         placeholder={'Please input note content'}
         placeholderTextColor={'#fff'}
         onSubmitEditing={handleSubmit}
