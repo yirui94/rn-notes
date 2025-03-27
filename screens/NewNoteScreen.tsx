@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
 import {
   Button,
 } from '@react-navigation/elements';
@@ -22,11 +21,11 @@ import {
   Color,
   Category,
 } from '@/constants/Constants';
+import LinearGradientView from '@/components/LinearGradientView';
 const DownIcon = require('@/assets/images/DownChevron.png')
 const UpIcon = require('@/assets/images/UpChevron.png')
 
 export default function SettingsScreen() {
-  //TODO: Extract LinearGradient into HOC
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const dispatch = useAppDispatch()
@@ -49,10 +48,8 @@ export default function SettingsScreen() {
   }
 
   return (
-    //TODO: Adjust gradient angle, low priority
     <>
-    <LinearGradient 
-      colors={['#1B284F', '#351159', '#421C45']} 
+    <LinearGradientView
       style={styles.gradientContainer}
     >
       <View style={{ marginTop: 26, marginBottom: 26 }}>
@@ -86,7 +83,7 @@ export default function SettingsScreen() {
         placeholderTextColor={'#fff'}
         onSubmitEditing={handleSubmit}
       />
-      </LinearGradient>
+      </LinearGradientView>
       {/* Extract to bottom pseudoTab Component */}
       <View style={{ ...styles.bottomTab, height: 90 + insets.bottom }}>
           <Button
@@ -103,8 +100,6 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   gradientContainer: {
-      flex: 1,
-      marginTop: -20,
       padding: 20,
       paddingBottom: 40,
       justifyContent: 'flex-start',

@@ -23,6 +23,7 @@ import {
     Color,
     Settings,
 } from '@/constants/Constants';
+import LinearGradientView from '@/components/LinearGradientView';
 const UserAgreementIcon = require('@/assets/images/UserAgreement.png')
 const AboutUsIcon = require('@/assets/images/AboutUs.png')
 const ChatIcon = require('@/assets/images/Chat.png')
@@ -30,7 +31,6 @@ const PrivacyPolicyIcon = require('@/assets/images/PrivacyPolicy.png')
 const RightChevronIcon = require('@/assets/images/RightChevronAccented.png')
   
 export default function SettingsScreen() {
-    //TODO: Extract LinearGradient into HOC
     const insets = useSafeAreaInsets();
     const dispatch = useAppDispatch()
     const [modalVisible, setModalVisible] = useState(false);
@@ -66,7 +66,6 @@ export default function SettingsScreen() {
     }
 
     return (
-      //TODO: Adjust gradient angle, low priority
       <>
         <Modal
           animationType="fade"
@@ -94,8 +93,7 @@ export default function SettingsScreen() {
                 </Pressable>
             </View>
         </Modal>
-        <LinearGradient 
-            colors={['#1B284F', '#351159', '#421C45']} 
+        <LinearGradientView
             style={styles.gradientContainer}
         >
             <ScrollView>
@@ -120,7 +118,7 @@ export default function SettingsScreen() {
                     )
                 })}
                 </ScrollView>
-            </LinearGradient>
+            </LinearGradientView>
             {/* Extract to bottom pseudoTab Component */}
             <View style={{ ...styles.bottomTab, height: 90 + insets.bottom }}>
                 <Button
@@ -137,8 +135,6 @@ export default function SettingsScreen() {
   
 const styles = StyleSheet.create({
     gradientContainer: {
-        flex: 1,
-        marginTop: -20,
         padding: 20,
         paddingBottom: 40
     },

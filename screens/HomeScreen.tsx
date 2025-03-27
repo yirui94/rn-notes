@@ -6,7 +6,6 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
 import { useAppSelector } from '@/redux/hooks';
 import { selectAllNotes  } from "@/redux/notesSlice";
 import {
@@ -16,6 +15,7 @@ import {
 import {
   Category,
 } from '@/constants/Constants';
+import LinearGradientView from "@/components/LinearGradientView";
 const WorkIcon = require('@/assets/images/WorkStudy.png')
 const LifeIcon = require('@/assets/images/Life.png')
 const HealthIcon = require('@/assets/images/HealthWellness.png')
@@ -46,59 +46,52 @@ export default function HomeScreen() {
   }
   
   return (
-    //TODO: Extract LinearGradient into HOC
-    //TODO: Adjust gradient angle, low priority
-    <LinearGradient 
-      colors={['#1B284F', '#351159', '#421C45']} 
-      style={styles.gradientContainer}
-    >
-    <ScrollView>
-        <View
-          style={{...styles.titleContainer, marginBottom: 26, marginTop: 20 }}
-        >
-          <Image source={RecentIcon} />
-          <Text style={styles.recentText}>Recently Created Notes</Text>
-        </View>
-        {ListOfCategories.map((entry, index) => {
-          return (
-            <View key={index} style={styles.categoryContainer}>
-              <View style={styles.titleContainer}>
-                {renderIcon(entry[0])}
-                <Text style={styles.titleText}>{entry[0]}</Text>
+    <LinearGradientView style={styles.gradientContainer}>
+      <ScrollView>
+          <View
+            style={{...styles.titleContainer, marginBottom: 26, marginTop: 20 }}
+          >
+            <Image source={RecentIcon} />
+            <Text style={styles.recentText}>Recently Created Notes</Text>
+          </View>
+          {ListOfCategories.map((entry, index) => {
+            return (
+              <View key={index} style={styles.categoryContainer}>
+                <View style={styles.titleContainer}>
+                  {renderIcon(entry[0])}
+                  <Text style={styles.titleText}>{entry[0]}</Text>
+                </View>
+                {/* Latest on the top */}
+                {entry[1].slice(-3).reverse().map((note, index) => {
+                  return (
+                    <PlatformPressable
+                      key={entry[0] + index}
+                      onPress={() => {}}
+                      style={styles.buttonContainer}
+                    >
+                      <View style={styles.buttonSubContainer}>
+                          <Text
+                              style={styles.text}
+                          >
+                              {note}
+                              {/* Task says to slice 20 but mockup differs, looks weird when sliced so I followed mockup */}
+                              {/* {note.slice(0, 20)} */}
+                          </Text>
+                      </View>
+                      <Image style={styles.chevron} source={RightChevronIcon} />
+                    </PlatformPressable>
+                  )
+                })}
               </View>
-              {/* Latest on the top */}
-              {entry[1].slice(-3).reverse().map((note, index) => {
-                return (
-                  <PlatformPressable
-                    key={entry[0] + index}
-                    onPress={() => {}}
-                    style={styles.buttonContainer}
-                  >
-                    <View style={styles.buttonSubContainer}>
-                        <Text
-                            style={styles.text}
-                        >
-                            {note}
-                            {/* Task says to slice 20 but mockup differs, looks weird when sliced so I followed mockup */}
-                            {/* {note.slice(0, 20)} */}
-                        </Text>
-                    </View>
-                    <Image style={styles.chevron} source={RightChevronIcon} />
-                  </PlatformPressable>
-                )
-              })}
-            </View>
-          )
-        })}
-      </ScrollView>
-      </LinearGradient>
+            )
+          })}
+        </ScrollView>
+      </LinearGradientView>
   );
 }
 
 const styles = StyleSheet.create({
   gradientContainer: {
-    flex: 1,
-    marginTop: -20,
     padding: 20,
     paddingBottom: 40
   },

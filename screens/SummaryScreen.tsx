@@ -6,7 +6,6 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
 import { useAppSelector } from '@/redux/hooks';
 import { selectAllNotes  } from "@/redux/notesSlice";
 import {
@@ -16,6 +15,7 @@ import {
   useSafeAreaInsets
 } from 'react-native-safe-area-context';
 
+import LinearGradientView from "@/components/LinearGradientView";
 import {
   Color,
   Category
@@ -25,7 +25,6 @@ const LifeIcon = require('@/assets/images/LifeMemoji.png')
 const HealthIcon = require('@/assets/images/HealthMemoji.png')
 
 export default function SummaryScreen() {
-  //TODO: Extract LinearGradient into HOC
   const inset = useSafeAreaInsets();
   const notes = useAppSelector(selectAllNotes);
   const ListOfCategories: [string, string[]][] = Object.entries(notes)
@@ -50,11 +49,8 @@ export default function SummaryScreen() {
   }
 
   return (
-    //TODO: Adjust gradient angle, low priority
-    <LinearGradient 
-      colors={['#1B284F', '#351159', '#421C45']} 
-      // TODO: extract to constants
-      style={{ ...styles.gradientContainer, paddingTop: 40 + 68 + inset.top + 20 }}
+    <LinearGradientView
+      style={{ paddingTop: 40 + 68 + inset.top + 20 }}
     >
       <View style={styles.scrollViewContainer}>
         <ScrollView>
@@ -86,16 +82,11 @@ export default function SummaryScreen() {
         })}
         </ScrollView>
       </View>
-    </LinearGradient>
+    </LinearGradientView>
   );
 }
 
 const styles = StyleSheet.create({
-  gradientContainer: {
-    flex: 1,
-    marginTop: -20,
-    paddingTop: 40,
-  },
   scrollViewContainer: {
     flexGrow: 1,
     paddingLeft: 20,
