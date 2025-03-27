@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { Category } from '@/constants/Constants';
 import { RootState } from '@/redux/store';
 
@@ -10,11 +10,9 @@ export interface NotesState {
     [Category.Health]: string[],
 }
   
-  // Define the initial state using that type
+// Define the initial state using that type
+// For debugging Go to delete all notes to restore initial state if hydration fills with empty state
 const initialState: NotesState = {
-    // [Category.Work]: ['Overview of basic computer networking knowledge', 'How to calculate float multiplication and division in JavaScript?'],
-    // [Category.Life]: ['Pan-fried chicken breast with vegetable salad'],
-    // [Category.Health]: ['Maintain sufficient daily water intake'],
     [Category.Work]: [],
     [Category.Life]: [],
     [Category.Health]: [],
@@ -36,9 +34,16 @@ export const notesSlice = createSlice({
 
 export const { addNote, deleteAll } = notesSlice.actions;
 
-export const selectAllNotes = (state: RootState) => state.notes;
 export const selectWorkNotes = (state: RootState) => state.notes[Category.Work];
 export const selectLifeNotes = (state: RootState) => state.notes[Category.Life];
 export const selectHealthNotes = (state: RootState) => state.notes[Category.Health];
+// Memoized Selector
+export const selectAllNotes = createSelector([selectWorkNotes, selectLifeNotes, selectHealthNotes], (a, b, c) => {
+    return {
+        [Category.Work]: a,
+        [Category.Life]: b,
+        [Category.Health]: c,
+    }
+})
 
 export default notesSlice.reducer;

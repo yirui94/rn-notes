@@ -30,3 +30,8 @@ Tested on Medium Phone with dimensions `1080 x 2400` @ `420dpi`
 ## iOS Runtime Env
 
 Tested on `iPhone 16 Pro` simulator on `iOS 18.3`
+
+## Additional Notes
+
+- Commented out my implemention of 20 character limit due to discrepancy between given Mockup and task statement.
+- Notes are saved to local storage and rehydrated upon app start
